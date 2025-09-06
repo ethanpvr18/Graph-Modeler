@@ -1,0 +1,213 @@
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100%; 
+    cursor: default;
+} 
+
+.graph { 
+    font-family: 'Gill Sans'; 
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+    display: block; 
+    min-height: 100px; 
+    background-color: white; 
+    background-image: radial-gradient(black, 1px, transparent 1px);
+    background-size: 24px 24px;
+    overflow: hidden;
+}
+
+.vertex { 
+    position: absolute; 
+    transform-origin: center center;
+    z-index: 3; 
+    border-radius: 50%; 
+    background-color: black; 
+    color: white; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    user-select: none; 
+    font-size: 24px;
+    min-width: 48px;
+    max-width: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+} 
+
+.edge { 
+    position: absolute;
+    width: auto;
+    height: 2px;
+    background-color: black;
+
+    transform-origin: 0% 50%; 
+    z-index: 0;
+    transition: background-color 0.3s ease
+}
+
+.edge-label { 
+    position: absolute; 
+    transform: rotate(0deg); 
+    z-index: 2;
+    background-color: white; 
+    padding: 6px 6px; 
+    font-size: 12px; 
+    font-weight: bold; 
+    border: 1px solid black; 
+    border-radius: 20%; 
+    color: black; 
+} 
+
+.edge-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 18px solid black;
+
+    transform-origin: 50% 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.editor {
+    position: absolute; 
+    z-index: 4; 
+    padding: 4px; 
+    border: 1px solid black; 
+    cursor: text; 
+}
+
+.selection-area {
+    position: absolute;
+    z-index: 5;
+    border: 2px dashed black;
+    background-color: rgba(0,0,0,0.1); 
+    cursor: pointer;  
+    pointer-events: none;
+}
+
+.dialog { 
+    left: 50%;
+    right: 50%;
+    transform: translate(-50% -50%);
+    min-width: 40px;
+    min-height: 20px;
+    z-index: 10; 
+    padding: 4px;
+    border: 2px solid black; 
+    background-color: white;
+    color: black;
+
+    font-family: 'Gill Sans';
+    font-size: 16px;
+    font-weight: 100;
+    cursor: move;
+}
+
+.result { 
+    position: absolute; 
+    top: 10%;
+    left: 10%;
+    width: 20%;
+    height: 15%;
+    z-index: 4; 
+    padding: 4px;
+    border: 2px solid black; 
+    border-radius: 5%;
+    background-color: white;
+    color: black;
+
+    font-family: 'Gill Sans';
+    font-size: 16px;
+    font-weight: 100;
+
+    cursor: move;
+    overflow: auto;
+}
+
+.toolbar { 
+    background-color: black;
+    border: none;
+    width: 100%;
+} 
+
+.btn {
+    font-family: 'Gill Sans';
+    font-size: 24px;
+    font-weight: 100;
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 10px;
+    margin: 4px 4px 4px 4px;
+    flex: 1;
+    min-width: 100px;
+}
+
+.btn:hover {
+    background-color: gray;
+}
+
+.submit {
+    font-family: 'Gill Sans';
+    font-size: 16px;
+    font-weight: 100;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 10%;
+    margin: 6px 6px 6px 6px;
+    flex: 1;
+    min-width: 100px;
+}
+
+.submit:hover {
+    background-color: gray;
+}
+
+@media print { 
+
+    * { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+        color-adjust: exact !important; 
+    } 
+    
+    .vertex { 
+        border: 2px solid black !important; 
+        min-width: 48px; 
+        min-height: 48px; 
+        border-radius: 50%; 
+        background-color: white !important; 
+        color: black !important; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    } 
+
+    .edge { 
+        background-color: black !important; 
+        height: 2px; 
+        transform-origin: 0% 50%; 
+    } 
+    
+    .edge-label { 
+        background-color: white !important; 
+        border: 1px solid black; 
+        padding: 2px; 
+    }
+
+    .toolbar {
+        display: none !important;
+    }
+}
