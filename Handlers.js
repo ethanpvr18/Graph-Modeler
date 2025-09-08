@@ -271,11 +271,10 @@ export function labelDblClickHandler(graph, event, edge) {
 
         edge.existingLabel = edge.label.textContent;
 
-        edge.isEditing = true;
-
         graph.graphRect = graph.graph.getBoundingClientRect();
 
         if(!edge.isEditing) {
+            edge.isEditing = true;
             edge.edgeEditor = new graph.Editor(edge.label.textContent, 
                                             (event.clientX - graph.graphRect.left - 24),
                                             (event.clientY - graph.graphRect.top - 24));
@@ -458,14 +457,14 @@ export function dfsBtnHandler(graph, event) {
     });
 
     if(runBtn)
-        runBtn.onClick = _runBtnHandler;
+        runBtn.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
     if(cancelBtn)
-        cancelBtn.onClick = _cancelBtnHandler;
+        cancelBtn.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -495,15 +494,13 @@ export function bfsBtnHandler(graph, event) {
         bfs(graph, sourceLabel);
     });
 
-    if(runBtn)
-        runBtn.onClick = _runBtnHandler;
+    runBtn?.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    if(cancelBtn)
-        cancelBtn.onClick = _cancelBtnHandler;
+    cancelBtn?.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -533,15 +530,14 @@ export function topoSortBtnHandler(graph, event) {
         topoSort(graph, sourceLabel);
     });
 
-    if(runBtn)
-        runBtn.onClick = _runBtnHandler;
+    runBtn?.addEventListener('click', _runBtnHandler);
+    
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    if(cancelBtn)
-        cancelBtn.onClick = _cancelBtnHandler;
+    cancelBtn?.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -571,15 +567,13 @@ export function maxFlowBtnHandler(graph, event) {
         maxFlow(graph, sourceLabel);
     });
 
-    if(runBtn)
-        runBtn.onClick = _runBtnHandler;
+    runBtn?.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    if(cancelBtn)
-        cancelBtn.onClick = _cancelBtnHandler;
+    cancelBtn?.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -609,15 +603,13 @@ export function shortestPathBtnHandler(graph, event) {
         shortestPath(graph, sourceLabel);
     });
 
-    if(runBtn)
-        runBtn.onClick = _runBtnHandler;
+    runBtn?.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    if(cancelBtn)
-        cancelBtn.onClick = _cancelBtnHandler;
+    cancelBtn?.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }

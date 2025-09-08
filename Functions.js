@@ -27,7 +27,7 @@ export async function dfs(graph, source='v0') {
 }
 
 async function dfsVisit(graph, vertex) {
-    if(vertex.color !== 'black') {
+    if(vertex.color === 'transparent') {
         time++;
 
         await wait(400);
