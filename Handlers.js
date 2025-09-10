@@ -152,8 +152,6 @@ export function keyHandler(graph, event) {
         graph.clipboard.operation.setOperation('deselect', graph);
         graph.clearSelection();
     }
-
-
 }
 
 export function dblClickHandler(graph, event) {
@@ -183,9 +181,7 @@ export function dblClickHandler(graph, event) {
         }
 
         return;
-    }
-    
-    if(!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')  && !event.target.classList.contains('dialog')) {
+    } else if (!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')  && !event.target.classList.contains('dialog')) {
         graph.graphRect = graph.graph.getBoundingClientRect();        
 
         let nextVertexNumber = 0;
@@ -196,12 +192,14 @@ export function dblClickHandler(graph, event) {
 
         const vertex = new graph.Vertex(`v${nextVertexNumber}`, event.clientX - graph.graphRect.left - 24, event.clientY - graph.graphRect.top - 24, { raw: true });
         graph.clipboard.operation.setOperation('create', vertex);
-    }
-
-    if(vertex.selected) {
+    
+        return;
+    } else if (vertex.selected) {
         graph.clipboard.operation.setOperation('deselect', vertex);
         vertex.deselect('transparent');
-    } else {
+
+        return;
+    } else if (!vertex.selected){
         graph.clipboard.operation.setOperation('select', vertex);
         graph.clipboard.operation.setOperation('edit', vertex);
         vertex.select('red');
@@ -219,12 +217,13 @@ export function dblClickHandler(graph, event) {
             vertex.vertexEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, vertex));
         }
         
-    }
-
-    if(edge.selected) {
+        return;
+    } else if (edge.selected) {
         graph.clipboard.operation.setOperation('deselect', edge);
         edge.deselect('transparent');
-    } else {
+
+        return;
+    } else if (!edge.selected) {
         graph.clipboard.operation.setOperation('select', edge);
         edge.select('red');
 
@@ -237,29 +236,6 @@ export function dblClickHandler(graph, event) {
             edge.edgeEditor = new graph.Editor(edge.existingLabel, 
                                         (event.clientX - graph.graphRect.left - 24),
                                         (event.clientY - graph.graphRect.top - 24));
-
-            edge.edgeEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, edge));
-        }
-        
-    }
-
-    if(edge.selected) {
-        graph.clipboard.operation.setOperation('deselect', edge);
-        edge.deselect('transparent');
-    } else {
-        graph.clipboard.operation.setOperation('select', edge);
-        graph.clipboard.operation.setOperation('edit', edge);
-        edge.select('red');
-
-        edge.existingLabel = edge.label.textContent;
-
-        graph.graphRect = graph.graph.getBoundingClientRect();
-
-        if(!edge.isEditing) {
-            edge.isEditing = true;
-            edge.edgeEditor = new graph.Editor(edge.label.textContent, 
-                                            (event.clientX - graph.graphRect.left - 24),
-                                            (event.clientY - graph.graphRect.top - 24));
 
             edge.edgeEditor.editor.keyHandler = (event) => {
                 if((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
@@ -275,6 +251,10 @@ export function dblClickHandler(graph, event) {
 
             edge.edgeEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, edge));
         }
+        
+        return;
+    } else {
+        return;
     }
 };
 
@@ -288,9 +268,9 @@ export function documentMouseDownHandler(graph, event) {
         if(graph.draggedVertex) {
             graph.draggedVertex.isDragging = true;
         }
-    }
-
-    if(event.target.classList.contains('result')) {
+        
+        return;
+    } else if (event.target.classList.contains('result')) {
         document.body.style.cursor = 'grabbing';
 
         graph.draggedResult = {
@@ -299,9 +279,9 @@ export function documentMouseDownHandler(graph, event) {
             offsetY: ((event.clientY - event.target.offsetTop) - ((event.clientY - event.target.offsetTop) % 24)),
             isDragging: true
         };
-    }
-
-    if(event.target.classList.contains('dialog')) {
+        
+        return;
+    } else if (event.target.classList.contains('dialog')) {
         document.body.style.cursor = 'grabbing';
 
         graph.draggedDialog = {
@@ -310,9 +290,9 @@ export function documentMouseDownHandler(graph, event) {
             offsetY: ((event.clientY - event.target.offsetTop) - ((event.clientY - event.target.offsetTop) % 24)),
             isDragging: true
         };
-    }
-
-    if(!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')) {
+        
+        return;
+    } else if (!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')) {
         graph.selectionArea = new graph.SelectionArea();
 
         graph.selectionArea.isDragging = true;
@@ -321,7 +301,11 @@ export function documentMouseDownHandler(graph, event) {
         let y = ((event.clientY - graphRect.top) - ((event.clientY - graphRect.top) % 24));
 
         graph.selectionArea.open(x, y);
-    } 
+        
+        return;
+    } else {
+        return;
+    }
 }
 
 export function documentMouseMoveHandler(graph, event) {
@@ -333,25 +317,25 @@ export function documentMouseMoveHandler(graph, event) {
         graph.draggedVertex.vertex.style.top = `${(event.clientY - graph.graphRect.top - 24) - ((event.clientY - graph.graphRect.top - 24) % 24)}px`;
         
         graph.edges.filter(edge => edge.v1 === graph.draggedVertex || edge.v2 === graph.draggedVertex).forEach(edge => edge.update());
-    }
-
-    if(graph.draggedResult && graph.draggedResult.isDragging) {
+        
+        return;
+    } else if (graph.draggedResult && graph.draggedResult.isDragging) {
         document.body.style.cursor = 'grabbing';
 
         graph.graphRect = graph.graph.getBoundingClientRect();
         graph.draggedResult.element.style.left = `${(event.clientX - graph.draggedResult.offsetX) - ((event.clientX - graph.draggedResult.offsetX) % 24)}px`;
         graph.draggedResult.element.style.top = `${(event.clientY - graph.draggedResult.offsetY) - ((event.clientY - graph.draggedResult.offsetY) % 24)}px`;
-    }
-    
-    if(graph.draggedDialog && graph.draggedDialog.isDragging) {
+        
+        return;
+    } else if (graph.draggedDialog && graph.draggedDialog.isDragging) {
         document.body.style.cursor = 'grabbing';
 
         graph.graphRect = graph.graph.getBoundingClientRect();
         graph.draggedDialog.element.style.left = `${(event.clientX - graph.draggedDialog.offsetX) - ((event.clientX - graph.draggedDialog.offsetX) % 24)}px`;
         graph.draggedDialog.element.style.top = `${(event.clientY - graph.draggedDialog.offsetY) - ((event.clientY - graph.draggedDialog.offsetY) % 24)}px`;
-    }
-
-    if(graph.selectionArea && graph.selectionArea.isDragging) {
+        
+        return;
+    } else if (graph.selectionArea && graph.selectionArea.isDragging) {
         document.body.style.cursor = 'grabbing';
 
         const graphRect = graph.graph.getBoundingClientRect();
@@ -360,6 +344,10 @@ export function documentMouseMoveHandler(graph, event) {
     
         graph.selectionArea.set(x, y);
         graph.selectionArea.select();
+        
+        return;
+    } else {
+        return;
     }
 }
 
@@ -384,29 +372,33 @@ export function documentMouseUpHandler(graph, event) {
                 weight: edge.weight
             }))
         }));
-    }
-
-    if(graph.draggedResult) {
+        
+        return;
+    } else if (graph.draggedResult) {
         document.body.style.cursor = 'default';
 
         graph.draggedResult.isDragging = false;
         graph.draggedResult = null;
-    }
-
-    if(graph.draggedDialog) {
+        
+        return;
+    } else if (graph.draggedDialog) {
         document.body.style.cursor = 'default';
 
         graph.draggedDialog.isDragging = false;
         graph.draggedDialog = null;
-    }
-
-    if(graph.selectionArea && graph.selectionArea.isDragging) {
+        
+        return;
+    } else if (graph.selectionArea && graph.selectionArea.isDragging) {
         document.body.style.cursor = 'default';
 
         graph.selectionArea.isDragging = false;
         graph.selectionArea.select();
         graph.selectionArea.close();
         graph.selectionArea = null;
+
+        return;
+    } else {
+        return;
     }
 }
 

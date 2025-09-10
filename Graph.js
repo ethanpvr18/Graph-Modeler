@@ -454,7 +454,7 @@ export class Graph {
                 this.existingLabel = this.label;
                 
                 if(this.vertex)
-                    this.vertex.addEventListener('dblclick', (event) => vertexDblClickHandler(graph, event, this));
+                    this.vertex.addEventListener('dblclick', (event) => dblClickHandler(graph, event, this));
 
                 graph.graph.appendChild(this.vertex);
 
@@ -496,12 +496,12 @@ export class Graph {
                     graph.vertices.splice(i, 1);
 
                 if(this.vertex && this.vertex.parentNode) {
-                    this.vertex.removeEventListener('dblclick', this._vertexDblClickHandler);
+                    this.vertex.removeEventListener('dblclick', this.dblClickHandler);
                     this.vertex.parentNode.removeChild(this.vertex);
                 }
 
                 if(this.vertexEditor.editor) {
-                    this.vertexEditor.editor.removeEventListener('keydown', this._vertexKeyHandler);
+                    this.vertexEditor.editor.removeEventListener('keydown', keyHandler);
                     this.vertexEditor.editor.removeEventListener('blur', this._vertexBlurHandler);
                     this.vertexEditor.removeEditor();
                     this.vertexEditor = null;
@@ -597,13 +597,13 @@ export class Graph {
                 this.v2 = v2;
 
                 if(this.edge) {
-                    this._edgeDblClickHandler = (event) => edgeDblClickHandler(graph, event, this);
-                    this.edge.addEventListener('dblclick', this._edgeDblClickHandler);
+                    this.dblClickHandler = (event) => dblClickHandler(graph, event, this);
+                    this.edge.addEventListener('dblclick', this.dblClickHandler);
                 }
 
                 if(this.label) {
-                    this._labelDblClickHandler = (event) => labelDblClickHandler(graph, event, this);
-                    this.label.addEventListener('dblclick', this._labelDblClickHandler);
+                    this.dblClickHandler = (event) => dblClickHandler(graph, event, this);
+                    this.label.addEventListener('dblclick', this.dblClickHandler);
                 }
 
                 graph.edges.push(this);
@@ -635,12 +635,12 @@ export class Graph {
                     graph.edges.splice(i, 1);
 
                 if(this.edge && this.edge.parentNode) {
-                    this.edge.removeEventListener('dblclick', this._edgeDblClickHandler);
+                    this.edge.removeEventListener('dblclick', this.dblClickHandler);
                     this.edge.parentNode.removeChild(this.edge);
                 }
 
                 if(this.label && this.label.parentNode) {
-                    this.label.removeEventListener('dblclick', this._labelDblClickHandler);
+                    this.label.removeEventListener('dblclick', this.dblClickHandler);
                     this.label.parentNode.removeChild(this.label);
                 }
 
@@ -649,7 +649,7 @@ export class Graph {
                 }
 
                 if(this.edgeEditor.editor) {
-                    this.edgeEditor.editor.removeEventListener('keydown', this._edgeKeyHandler);
+                    this.edgeEditor.editor.removeEventListener('keydown', this.keyHandler);
                     this.edgeEditor.removeEditor();
                     this.edgeEditor = null;
                 }
@@ -657,7 +657,7 @@ export class Graph {
         };
 
         if(document)
-            document.addEventListener('keydown', (event) => documentKeyHandler(graph, event));
+            document.addEventListener('keydown', (event) => keyHandler(graph, event));
     }
 
     clearSelection() {
