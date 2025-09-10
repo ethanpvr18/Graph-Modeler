@@ -139,7 +139,7 @@ export function edgeKeyHandler(graph, event, edge) {
 export function documentRemoveKeyHandler(graph, event) {
     if((event.ctrlKey || event.metaKey) && event.key === 'Backspace') {
         graph.edges.filter(edge => edge.selected).forEach(edge => {
-            if(edge?.edge?.parentNode) {
+            if(edge.edge.parentNode) {
                 graph.clipboard.operation.setOperation('remove', edge);
                 edge.removeEdge();
 
@@ -160,7 +160,7 @@ export function documentRemoveKeyHandler(graph, event) {
 
         graph.vertices.filter(vertex => vertex.selected).forEach(vertex => {
             graph.edges.filter(edge => (vertex === edge.v1 || vertex === edge.v2)).forEach(edge => {
-                if(edge?.edge?.parentNode) {
+                if(edge.edge.parentNode) {
                     graph.clipboard.operation.setOperation('remove', edge);
                     edge.removeEdge();
 
@@ -179,7 +179,7 @@ export function documentRemoveKeyHandler(graph, event) {
                 }
             });
 
-            if(vertex?.vertex?.parentNode) {
+            if(vertex.vertex.parentNode) {
                 graph.clipboard.operation.setOperation('remove', vertex);
                 vertex.removeVertex();
 
@@ -494,13 +494,13 @@ export function bfsBtnHandler(graph, event) {
         bfs(graph, sourceLabel);
     });
 
-    runBtn?.addEventListener('click', _runBtnHandler);
+    runBtn.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    cancelBtn?.addEventListener('click', _cancelBtnHandler);
+    cancelBtn.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -530,14 +530,14 @@ export function topoSortBtnHandler(graph, event) {
         topoSort(graph, sourceLabel);
     });
 
-    runBtn?.addEventListener('click', _runBtnHandler);
+    runBtn.addEventListener('click', _runBtnHandler);
     
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    cancelBtn?.addEventListener('click', _cancelBtnHandler);
+    cancelBtn.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -567,13 +567,13 @@ export function maxFlowBtnHandler(graph, event) {
         maxFlow(graph, sourceLabel);
     });
 
-    runBtn?.addEventListener('click', _runBtnHandler);
+    runBtn.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    cancelBtn?.addEventListener('click', _cancelBtnHandler);
+    cancelBtn.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }
@@ -603,13 +603,13 @@ export function shortestPathBtnHandler(graph, event) {
         shortestPath(graph, sourceLabel);
     });
 
-    runBtn?.addEventListener('click', _runBtnHandler);
+    runBtn.addEventListener('click', _runBtnHandler);
 
     const cancelBtn = document.querySelector('.cancel');
     const _cancelBtnHandler = ((event) => {
         graph.dialog.remove();
     });
-    cancelBtn?.addEventListener('click', _cancelBtnHandler);
+    cancelBtn.addEventListener('click', _cancelBtnHandler);
 
     operation = '';
 }

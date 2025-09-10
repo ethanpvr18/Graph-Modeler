@@ -50,12 +50,12 @@ async function dfsVisit(graph, vertex) {
         await wait(400);
         vertex.finishTime = time;
         vertex.color = 'black';
-        vertex?.select('black');
+        vertex.select('black');
         graph.result.add(vertex.label);
     }
     
     await wait(400);
-    graph.edges.find(e => (e.v1 === vertex.predecessor) && (e.v2 === vertex) && (e.color !== 'black'))?.select('black');
+    graph.edges.find(e => (e.v1 === vertex.predecessor) && (e.v2 === vertex) && (e.color !== 'black')).select('black');
 }
 
 
@@ -101,7 +101,7 @@ export async function bfs(graph, source='v0') {
         }
 
         await wait(400);
-        graph.edges.find(e => (e.v1 === u.predecessor) && (e.v2 === u) && (e.color !== 'black'))?.select('black');
+        graph.edges.find(e => (e.v1 === u.predecessor) && (e.v2 === u) && (e.color !== 'black')).select('black');
         
         await wait(400);
         if(u.color !== 'black') {

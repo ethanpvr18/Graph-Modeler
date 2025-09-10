@@ -250,7 +250,7 @@ export class Graph {
                 this.input = null;
                 if(!this.dialog){
                     this.dialog = document.createElement('form');
-                    this.dialogText = document.createElement('div');
+                    this.dialogText = document.createElement('label');
                     this.dialogText.textContent = text;
                     this.dialogInput = document.createElement('input');
 
@@ -259,12 +259,6 @@ export class Graph {
                     this.submit.classList.add('run');
                     this.submit.classList.add('submit');
                     this.submit.type = 'button';
-
-                    this.closeDialog = document.createElement('input');
-                    this.closeDialog.value = 'Cancel';
-                    this.closeDialog.classList.add('cancel');
-                    this.closeDialog.classList.add('submit');
-                    this.closeDialog.type = 'button';
 
                     this.dialog.classList.add('dialog');
 
@@ -495,7 +489,7 @@ export class Graph {
                     this.vertex.parentNode.removeChild(this.vertex);
                 }
 
-                if(this.vertexEditor?.editor) {
+                if(this.vertexEditor.editor) {
                     this.vertexEditor.editor.removeEventListener('keydown', this._vertexKeyHandler);
                     this.vertexEditor.editor.removeEventListener('blur', this._vertexBlurHandler);
                     this.vertexEditor.removeEditor();
@@ -549,16 +543,16 @@ export class Graph {
                 this.update = () => {
                     graph.graphRect = graph.graph.getBoundingClientRect();
                     
-                    this.v1Rect = v1?.vertex.getBoundingClientRect();
-                    this.v2Rect = v2?.vertex.getBoundingClientRect();
+                    this.v1Rect = v1.vertex.getBoundingClientRect();
+                    this.v2Rect = v2.vertex.getBoundingClientRect();
 
-                    if(this.v1Rect?.width === 0 || this.v2Rect?.width === 0)
+                    if(this.v1Rect.width === 0 || this.v2Rect.width === 0)
                         return;
 
-                    const x1 = (this.v1Rect?.left + (this.v1Rect?.width / 2)) - graph.graphRect.left;
-                    const y1 = (this.v1Rect?.top + (this.v1Rect?.height / 2)) - graph.graphRect.top;
-                    const x2 = (this.v2Rect?.left + (this.v2Rect?.width / 2)) - graph.graphRect.left;
-                    const y2 = (this.v2Rect?.top + (this.v2Rect?.height / 2)) - graph.graphRect.top;
+                    const x1 = (this.v1Rect.left + (this.v1Rect.width / 2)) - graph.graphRect.left;
+                    const y1 = (this.v1Rect.top + (this.v1Rect.height / 2)) - graph.graphRect.top;
+                    const x2 = (this.v2Rect.left + (this.v2Rect.width / 2)) - graph.graphRect.left;
+                    const y2 = (this.v2Rect.top + (this.v2Rect.height / 2)) - graph.graphRect.top;
 
                     const dx = x2 - x1;
                     const dy = y2 - y1;
@@ -643,7 +637,7 @@ export class Graph {
                     this.arrow.parentNode.removeChild(this.arrow);
                 }
 
-                if(this.edgeEditor?.editor) {
+                if(this.edgeEditor.editor) {
                     this.edgeEditor.editor.removeEventListener('keydown', this._edgeKeyHandler);
                     this.edgeEditor.removeEditor();
                     this.edgeEditor = null;
