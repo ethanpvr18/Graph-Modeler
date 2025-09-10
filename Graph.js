@@ -250,21 +250,34 @@ export class Graph {
                 this.input = null;
                 if(!this.dialog){
                     this.dialog = document.createElement('form');
+                    this.dialog.action = '';
+                    this.dialog.classList.add('dialog');
+
                     this.dialogText = document.createElement('label');
                     this.dialogText.textContent = text;
-                    this.dialogInput = document.createElement('input');
+                    this.dialogText.for = 'sourceVertex';
 
+                    this.dialogInput = document.createElement('input');
+                    this.dialogInput.type = 'text';
+                    this.dialogInput.id = 'sourceVertex';
+                    this.dialogInput.name = 'sourceVertex';
+                    this.dialogInput.value = 'v0';
+                    
                     this.submit = document.createElement('input');
+                    this.submit.type = 'submit';
                     this.submit.value = 'Run';
                     this.submit.classList.add('run');
                     this.submit.classList.add('submit');
-                    this.submit.type = 'button';
 
-                    this.dialog.classList.add('dialog');
+                    this.close = document.createElement('input');
+                    this.close.type = 'button';
+                    this.close.value = 'Cancel';
+                    this.close.classList.add('submit');
 
                     this.dialog.appendChild(this.dialogText);
                     this.dialog.appendChild(this.dialogInput);
                     this.dialog.appendChild(this.submit);
+                    this.dialog.appendChild(this.close);
                     graph.graph.appendChild(this.dialog);
 
                     this.isDragging = false;

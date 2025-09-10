@@ -437,7 +437,7 @@ export function dfsBtnHandler(graph, event) {
     event.stopPropagation();
 
     if(!graph.dialog) {
-        graph.dialog = new graph.Dialog('Enter Source Vertex Label:');
+        graph.dialog = new graph.Dialog('Enter Source Vertex Label:  ');
     }
 
     const runBtn = document.querySelector('.run');
@@ -475,7 +475,7 @@ export function bfsBtnHandler(graph, event) {
     event.stopPropagation();
 
     if(!graph.dialog) {
-        graph.dialog = new graph.Dialog('Enter Source Vertex Label:');
+        graph.dialog = new graph.Dialog('Enter Source Vertex Label:  ');
     }
 
     const runBtn = document.querySelector('.run');
@@ -511,7 +511,7 @@ export function topoSortBtnHandler(graph, event) {
     event.stopPropagation();
 
     if(!graph.dialog) {
-        graph.dialog = new graph.Dialog('Enter Source Vertex Label:');
+        graph.dialog = new graph.Dialog('Enter Source Vertex Label:  ');
     }
 
     const runBtn = document.querySelector('.run');
@@ -548,7 +548,7 @@ export function maxFlowBtnHandler(graph, event) {
     event.stopPropagation();
 
     if(!graph.dialog) {
-        graph.dialog = new graph.Dialog('Enter Source Vertex Label:');
+        graph.dialog = new graph.Dialog('Enter Source Vertex Label:  ');
     }
 
     const runBtn = document.querySelector('.run');
@@ -584,7 +584,7 @@ export function shortestPathBtnHandler(graph, event) {
     event.stopPropagation();
 
     if(!graph.dialog) {
-        graph.dialog = new graph.Dialog('Enter Source Vertex Label:');
+        graph.dialog = new graph.Dialog('Enter Source Vertex Label:  ');
     }
 
     const runBtn = document.querySelector('.run');
