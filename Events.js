@@ -51,8 +51,8 @@ closeBtn.addEventListener('click', (event) => closeBtnHandler(graph, event));
 const saveBtn = document.querySelector('.save');
 saveBtn.addEventListener('click', (event) => saveBtnHandler(graph, event));
 
-const saveAsBtn = document.querySelector('.save-as');
-saveAsBtn.addEventListener('click', (event) => saveAsBtnHandler(graph, event));
+// const saveAsBtn = document.querySelector('.save-as');
+// saveAsBtn.addEventListener('click', (event) => saveAsBtnHandler(graph, event));
 
 const printBtn = document.querySelector('.print');
 printBtn.addEventListener('click', (event) => printBtnHandler(graph, event));
