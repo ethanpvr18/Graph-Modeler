@@ -1,7 +1,7 @@
 import { Graph } from './Graph.js';
 import { windowReloadHandler, 
-         documentDblClickHandler, 
-         documentKeyHandler, 
+         dblClickHandler, 
+         keyHandler, 
          documentMouseDownHandler, 
          documentMouseMoveHandler, 
          documentMouseUpHandler, 
@@ -21,11 +21,11 @@ export const graph = new Graph();
 window.addEventListener('load', (event) => windowReloadHandler(graph, event));
 window.addEventListener('beforeunload', (event) => windowReloadHandler(graph, event));
 
-document.addEventListener('dblclick', (event) => documentDblClickHandler(graph, event));
+document.addEventListener('dblclick', (event) => dblClickHandler(graph, event));
 document.addEventListener('mousedown', (event) => documentMouseDownHandler(graph, event));
 document.addEventListener('mousemove', (event) => documentMouseMoveHandler(graph, event));
 document.addEventListener('mouseup', (event) => documentMouseUpHandler(graph, event));
-document.addEventListener('keydown', (event) => documentKeyHandler(graph, event));
+document.addEventListener('keydown', (event) => keyHandler(graph, event));
 
 const dfsBtn = document.querySelector('.depth-first-search');
 dfsBtn.addEventListener('click', (event) => dfsBtnHandler(graph, event));

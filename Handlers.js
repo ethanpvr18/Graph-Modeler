@@ -24,7 +24,7 @@ export function windowReloadHandler(graph, event) {
 
 }
 
-export function documentKeyHandler(graph, event) {
+export function keyHandler(graph, event) {
     if((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
         event.preventDefault();
         graph.saveGraph();
@@ -64,64 +64,7 @@ export function documentKeyHandler(graph, event) {
         event.preventDefault();
         graph.clearSelection();
     }
-}
 
-export function documentDblClickHandler(graph, event) {
-    document.body.style.cursor = 'pointer';
-
-    if(event.target.classList.contains('vertex')) {
-        if(!graph.v1) {
-            graph.v1 = graph.vertices.find(v => v.vertex === event.target);
-            graph.v1.select('red');
-            graph.clipboard.operation.setOperation('select', graph.v1);
-        } else if (!graph.v2) {
-            graph.v2 = graph.vertices.find(v => v.vertex === event.target);
-            graph.v2.select('red');
-            graph.clipboard.operation.setOperation('select', graph.v2);
-            graph.clearSelection();
-            graph.clipboard.operation.setOperation('deselect', graph.v1);
-            graph.clipboard.operation.setOperation('deselect', graph.v2);
-
-            if(graph.v1 && graph.v2 && graph.v1 !== graph.v2){
-                graph.clearSelection();
-                graph.graphRect = graph.graph.getBoundingClientRect();
-                graph.e1 = new graph.Edge(graph.v1, graph.v2, graph.DEFAULT_WEIGHT);
-                graph.clipboard.operation.setOperation('create', graph.e1);
-            }
-
-            graph.v1 = graph.v2 = graph.e1 = null;
-        }
-
-        return;
-    }
-    
-    if(!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')  && !event.target.classList.contains('dialog')) {
-        graph.graphRect = graph.graph.getBoundingClientRect();        
-
-        let nextVertexNumber = 0;
-
-        while(graph.vertices.find(v => v.label === `v${nextVertexNumber}`)) {
-            nextVertexNumber++;
-        }
-
-        const vertex = new graph.Vertex(`v${nextVertexNumber}`, event.clientX - graph.graphRect.left - 24, event.clientY - graph.graphRect.top - 24, { raw: true });
-        graph.clipboard.operation.setOperation('create', vertex);
-    }
-}
-
-export function vertexKeyHandler(graph, event, vertex) {
-    if((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-
-        graph.clipboard.operation.setOperation('edit', vertex);
-
-        vertex.setVertex(vertex.vertexEditor.editor.value);
-        vertex.vertexEditor.removeEditor();
-        vertex.vertexEditor = null;
-        vertex.deselect('transparent');
-    }
-}
-
-export function edgeKeyHandler(graph, event, edge) {
     if((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
         graph.clipboard.operation.setOperation('edit', edge);
 
@@ -134,9 +77,17 @@ export function edgeKeyHandler(graph, event, edge) {
         edge.deselect('transparent');
         graph.clipboard.operation.setOperation('deselect', edge);
     }
-}
 
-export function documentRemoveKeyHandler(graph, event) {
+    if((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+
+        graph.clipboard.operation.setOperation('edit', vertex);
+
+        vertex.setVertex(vertex.vertexEditor.editor.value);
+        vertex.vertexEditor.removeEditor();
+        vertex.vertexEditor = null;
+        vertex.deselect('transparent');
+    }
+    
     if((event.ctrlKey || event.metaKey) && event.key === 'Backspace') {
         graph.edges.filter(edge => edge.selected).forEach(edge => {
             if(edge.edge.parentNode) {
@@ -201,9 +152,52 @@ export function documentRemoveKeyHandler(graph, event) {
         graph.clipboard.operation.setOperation('deselect', graph);
         graph.clearSelection();
     }
+
+
 }
 
-export function vertexDblClickHandler(graph, event, vertex) {
+export function dblClickHandler(graph, event) {
+    document.body.style.cursor = 'pointer';
+
+    if(event.target.classList.contains('vertex')) {
+        if(!graph.v1) {
+            graph.v1 = graph.vertices.find(v => v.vertex === event.target);
+            graph.v1.select('red');
+            graph.clipboard.operation.setOperation('select', graph.v1);
+        } else if (!graph.v2) {
+            graph.v2 = graph.vertices.find(v => v.vertex === event.target);
+            graph.v2.select('red');
+            graph.clipboard.operation.setOperation('select', graph.v2);
+            graph.clearSelection();
+            graph.clipboard.operation.setOperation('deselect', graph.v1);
+            graph.clipboard.operation.setOperation('deselect', graph.v2);
+
+            if(graph.v1 && graph.v2 && graph.v1 !== graph.v2){
+                graph.clearSelection();
+                graph.graphRect = graph.graph.getBoundingClientRect();
+                graph.e1 = new graph.Edge(graph.v1, graph.v2, graph.DEFAULT_WEIGHT);
+                graph.clipboard.operation.setOperation('create', graph.e1);
+            }
+
+            graph.v1 = graph.v2 = graph.e1 = null;
+        }
+
+        return;
+    }
+    
+    if(!event.target.classList.contains('vertex') && !event.target.classList.contains('edge') && !event.target.classList.contains('edge-label') && !event.target.classList.contains('editor') && !event.target.classList.contains('toolbar') && !event.target.classList.contains('result')  && !event.target.classList.contains('dialog')) {
+        graph.graphRect = graph.graph.getBoundingClientRect();        
+
+        let nextVertexNumber = 0;
+
+        while(graph.vertices.find(v => v.label === `v${nextVertexNumber}`)) {
+            nextVertexNumber++;
+        }
+
+        const vertex = new graph.Vertex(`v${nextVertexNumber}`, event.clientX - graph.graphRect.left - 24, event.clientY - graph.graphRect.top - 24, { raw: true });
+        graph.clipboard.operation.setOperation('create', vertex);
+    }
+
     if(vertex.selected) {
         graph.clipboard.operation.setOperation('deselect', vertex);
         vertex.deselect('transparent');
@@ -229,9 +223,7 @@ export function vertexDblClickHandler(graph, event, vertex) {
         }
         
     }
-}
 
-export function edgeDblClickHandler(graph, event, edge) {
     if(edge.selected) {
         graph.clipboard.operation.setOperation('deselect', edge);
         edge.deselect('transparent');
@@ -256,10 +248,6 @@ export function edgeDblClickHandler(graph, event, edge) {
         }
         
     }
-};
-
-export function labelDblClickHandler(graph, event, edge) {
-    graph.clipboard.operation.setOperation('edit', edge);
 
     if(edge.selected) {
         graph.clipboard.operation.setOperation('deselect', edge);
