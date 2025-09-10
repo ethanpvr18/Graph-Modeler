@@ -216,10 +216,7 @@ export function dblClickHandler(graph, event) {
                                         (event.clientX - graph.graphRect.left - 24),
                                         (event.clientY - graph.graphRect.top - 24));
         
-            if(vertex.vertexEditor.editor) {
-                const _vertexKeyHandler = (event) => vertexKeyHandler(graph, event, vertex);
-                vertex.vertexEditor.editor.addEventListener('keydown', _vertexKeyHandler);
-            }
+            vertex.vertexEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, vertex));
         }
         
     }
@@ -241,10 +238,7 @@ export function dblClickHandler(graph, event) {
                                         (event.clientX - graph.graphRect.left - 24),
                                         (event.clientY - graph.graphRect.top - 24));
 
-            if(edge.edgeEditor) {
-                const _edgeKeyHandler = (event) => edgeKeyHandler(graph, event, edge);
-                edge.edgeEditor.editor.addEventListener('keydown', _edgeKeyHandler);
-            }
+            edge.edgeEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, edge));
         }
         
     }
@@ -267,7 +261,7 @@ export function dblClickHandler(graph, event) {
                                             (event.clientX - graph.graphRect.left - 24),
                                             (event.clientY - graph.graphRect.top - 24));
 
-            edge.edgeEditor.editor._edgeKeyHandler = (event) => {
+            edge.edgeEditor.editor.keyHandler = (event) => {
                 if((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
                     edge.edgeEditor.setEdge(edge.edgeEditor.editor.value);
                     
@@ -279,10 +273,7 @@ export function dblClickHandler(graph, event) {
                 }
             };
 
-            if(edge.edgeEditor.editor) {
-                const _edgeKeyHandler = (event) => edgeKeyHandler(graph, event, edge);
-                edge.edgeEditor.editor.addEventListener('keydown', _edgeKeyHandler);
-            }
+            edge.edgeEditor.editor.addEventListener('keydown', (event) => keyHandler(graph, event, edge));
         }
     }
 };

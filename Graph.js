@@ -1,7 +1,5 @@
-import { documentKeyHandler,
-         vertexDblClickHandler,
-         edgeDblClickHandler,
-         labelDblClickHandler } from './Handlers.js';
+import { keyHandler,
+         dblClickHandler } from './Handlers.js';
 import { Stack } from './Stack.js';
 
 
