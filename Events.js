@@ -33,14 +33,14 @@ dfsBtn.addEventListener('click', (event) => dfsBtnHandler(graph, event));
 const bfsBtn = document.querySelector('.breadth-first-search');
 bfsBtn.addEventListener('click', (event) => bfsBtnHandler(graph, event));
 
-const topoSortBtn = document.querySelector('.topo-sort');
-topoSortBtn.addEventListener('click', (event) => topoSortBtnHandler(graph, event));
+// const topoSortBtn = document.querySelector('.topo-sort');
+// topoSortBtn.addEventListener('click', (event) => topoSortBtnHandler(graph, event));
 
-const maxFlowBtn = document.querySelector('.max-flow');
-maxFlowBtn.addEventListener('click', (event) => maxFlowBtnHandler(graph, event));
+// const maxFlowBtn = document.querySelector('.max-flow');
+// maxFlowBtn.addEventListener('click', (event) => maxFlowBtnHandler(graph, event));
 
-const shortestPathBtn = document.querySelector('.shortest-path');
-shortestPathBtn.addEventListener('click', (event) => shortestPathBtnHandler(graph, event));
+// const shortestPathBtn = document.querySelector('.shortest-path');
+// shortestPathBtn.addEventListener('click', (event) => shortestPathBtnHandler(graph, event));
 
 const openBtn = document.querySelector('.open');
 openBtn.addEventListener('click', (event) => openBtnHandler(graph, event));
